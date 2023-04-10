@@ -22,8 +22,8 @@ export default function RegionRedux() {
   const onDelete = async (id: any) => {
     dispatch(DelRegionRequest(id));
     window.alert("Data Successfully Delete");
-    setDisplay(false);
     setRefresh(!refresh);
+    setDisplay(false);
   };
 
   const onClick = (id: any) => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-// import { EditProdCategoryRequest, GetOneProdCategoryRequest } from "../ReduxSaga/Action/ProdCategoryAction";
 import { EditRegionRequest, GetOneRegionRequest } from "@/redux-saga/action/regionAction";
 
 export default function FormikRegionEdit(props: any) {
