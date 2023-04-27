@@ -6,6 +6,10 @@ import ProdCategoryReduce from "./productCategoryReducer";
 import ProductReduce from "./productReducer";
 import OrderDetailReduce from "./orderDetailReducer";
 import UserReducer from "./userReducer";
+import VendorReducer from "./vendorReducer";
+import VendorProductReducer from "./vendorProductReducer";
+import StocksReducer from "./stocksReducer";
+import StockDetailReducer from "./stockDetailReducer";
 
 const rootReducer = combineReducers({
   regionState: RegionReduce,
@@ -15,6 +19,11 @@ const rootReducer = combineReducers({
   ProductState: ProductReduce,
   OrderDetailState: OrderDetailReduce,
   userState: UserReducer,
+
+  vendorState: VendorReducer,
+  vendorProductState: VendorProductReducer,
+  stocksState: StocksReducer,
+  stockDetailState: StockDetailReducer,
 });
 
 export default rootReducer;

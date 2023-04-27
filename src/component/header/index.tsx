@@ -6,12 +6,16 @@ import { useRouter } from "next/router";
 import { UserSignoutRequest } from "@/redux-saga/action/userAction";
 
 const navigation = [
-  { name: "Dashboard", href: "/", current: true },
-  { name: "Product Category Redux", href: "/SagaView/ProductCategory", current: false },
-  { name: "Customer Redux", href: "/SagaView/Customer", current: false },
-  { name: "Orders Redux", href: "/SagaView/Orders", current: false },
-  { name: "Product Redux", href: "/SagaView/Product", current: false },
-  { name: "Order Detail Redux", href: "/SagaView/OrderDetail", current: false },
+  // { name: "Dashboard", href: "/", current: true },
+  // { name: "Product Category Redux", href: "/SagaView/ProductCategory", current: false },
+  // { name: "Customer Redux", href: "/SagaView/Customer", current: false },
+  // { name: "Orders Redux", href: "/SagaView/Orders", current: false },
+  // { name: "Product Redux", href: "/SagaView/Product", current: false },
+  // { name: "Order Detail Redux", href: "/SagaView/OrderDetail", current: false },
+  { name: "Vendor", href: "/SagaView/Vendor", current: false },
+  { name: "Vendor Product", href: "/SagaView/VendorProduct", current: false },
+  { name: "Stocks", href: "/SagaView/Stocks", current: false },
+  { name: "StockDetail", href: "/SagaView/StockDetail", current: false },
 ];
 
 function classNames(...classes: any) {
@@ -26,11 +30,11 @@ export default function Header() {
     dispatch(UserSignoutRequest());
     router.reload();
   };
-  useEffect(() => {
-    if (!UserProfile) {
-      router.push("/signin");
-    }
-  }, [UserProfile, router]);
+  // useEffect(() => {
+  //   if (!UserProfile) {
+  //     router.push("/signin");
+  //   }
+  // }, [UserProfile, router]);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (

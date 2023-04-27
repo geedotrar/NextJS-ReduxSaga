@@ -12,6 +12,16 @@ import { createProduct, deleteProduct, editProduct, findProduct, handleProduct }
 import { createOrderDetail, deleteOrderDetail, editOrderDetail, findOrderDetail, handleOrderDetail } from "./OrderDetailSaga";
 import { handleSignin, handleSignout, handleSignup } from "./UserSaga";
 
+import * as ActionTypeVendor from "../constant/vendorConstant";
+import * as ActionTypeVendorProduct from "../constant/vendorProductConstant";
+import * as ActionTypeStock from "../constant/stocksConstant";
+import * as ActionTypeStockDetail from "../constant/stockDetailConstant";
+
+import { createVendor, deleteVendor, editVendor, findVendor, handleVendor } from "./VendorSaga";
+import { createVendorProduct, deleteVendorProduct, editVendorProduct, findVendorProduct, handleVendorProduct } from "./VendorProductSaga";
+import { createStock, deleteStock, editStock, findStock, handleStock } from "./StocksSaga";
+import { createStockDetail, deleteStockDetail, editStockDetail, findStockDetail, handleStockDetail } from "./StockDetailSaga";
+
 function* watchAll() {
   yield all([
     takeEvery(ActionTypeProductCategory.GET_PRODCATEGORY_REQUEST, handleProdCategory),
@@ -47,6 +57,31 @@ function* watchAll() {
     takeEvery(ActionTypeUser.USER_SIGNIN_REQUEST, handleSignin),
     takeEvery(ActionTypeUser.USER_SIGNOUT_REQUEST, handleSignout),
     takeEvery(ActionTypeUser.USER_SIGNUP_REQUEST, handleSignup),
+
+    // mproject
+    takeEvery(ActionTypeVendor.GET_VENDOR_REQUEST, handleVendor),
+    takeEvery(ActionTypeVendor.ADD_VENDOR_REQUEST, createVendor),
+    takeEvery(ActionTypeVendor.FIND_VENDOR_REQUEST, findVendor),
+    takeEvery(ActionTypeVendor.EDIT_VENDOR_REQUEST, editVendor),
+    takeEvery(ActionTypeVendor.DEL_VENDOR_REQUEST, deleteVendor),
+
+    takeEvery(ActionTypeVendorProduct.GET_VENDORPRODUCT_REQUEST, handleVendorProduct),
+    takeEvery(ActionTypeVendorProduct.ADD_VENDORPRODUCT_REQUEST, createVendorProduct),
+    takeEvery(ActionTypeVendorProduct.FIND_VENDORPRODUCT_REQUEST, findVendorProduct),
+    takeEvery(ActionTypeVendorProduct.EDIT_VENDORPRODUCT_REQUEST, editVendorProduct),
+    takeEvery(ActionTypeVendorProduct.DEL_VENDORPRODUCT_REQUEST, deleteVendorProduct),
+
+    takeEvery(ActionTypeStock.GET_STOCK_REQUEST, handleStock),
+    takeEvery(ActionTypeStock.ADD_STOCK_REQUEST, createStock),
+    takeEvery(ActionTypeStock.FIND_STOCK_REQUEST, findStock),
+    takeEvery(ActionTypeStock.EDIT_STOCK_REQUEST, editStock),
+    takeEvery(ActionTypeStock.DEL_STOCK_REQUEST, deleteStock),
+
+    takeEvery(ActionTypeStockDetail.GET_STOCKDETAIL_REQUEST, handleStockDetail),
+    takeEvery(ActionTypeStockDetail.ADD_STOCKDETAIL_REQUEST, createStockDetail),
+    takeEvery(ActionTypeStockDetail.FIND_STOCKDETAIL_REQUEST, findStockDetail),
+    takeEvery(ActionTypeStockDetail.EDIT_STOCKDETAIL_REQUEST, editStockDetail),
+    takeEvery(ActionTypeStockDetail.DEL_STOCKDETAIL_REQUEST, deleteStockDetail),
   ]);
 }
 
