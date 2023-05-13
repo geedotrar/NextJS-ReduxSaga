@@ -3,7 +3,7 @@ import config from "@/config/config";
 
 const GetData = async () => {
   try {
-    const result = await axios.get(`${config.domain}/stockDetail/`);
+    const result = await axios.get(`${config.domain}/purchaseOrderHeader/`);
     return result.data;
   } catch (error) {
     return error;
@@ -12,7 +12,7 @@ const GetData = async () => {
 
 const Create = async (payload: any) => {
   try {
-    const result = await axios.post(`${config.domain}/stockDetail/`, payload);
+    const result = await axios.post(`${config.domain}/purchaseOrderHeader/`, payload);
     return result;
   } catch (error) {
     return error;
@@ -21,7 +21,7 @@ const Create = async (payload: any) => {
 
 const Update = async (payload: any) => {
   try {
-    const result = await axios.put(`${config.domain}/stockDetail/${payload.id}/${payload.stodId}`, payload);
+    const result = await axios.put(`${config.domain}/purchaseOrderHeader/${payload.id}`, payload);
     return result;
   } catch (error) {
     return error;
@@ -30,16 +30,7 @@ const Update = async (payload: any) => {
 
 const FindData = async (id: any) => {
   try {
-    const result = await axios.get(`${config.domain}/stockDetail/${id}`);
-    return result.data;
-  } catch (error) {
-    return await error;
-  }
-};
-
-const FindDataByStock = async (id: any) => {
-  try {
-    const result = await axios.get(`${config.domain}/stockDetail/stock/${id}`);
+    const result = await axios.get(`${config.domain}/purchaseOrderHeader/${id}`);
     return result.data;
   } catch (error) {
     return await error;
@@ -48,7 +39,7 @@ const FindDataByStock = async (id: any) => {
 
 const Deleted = async (id: any) => {
   try {
-    const result = await axios.delete(`${config.domain}/stockDetail/${id}`);
+    const result = await axios.delete(`${config.domain}/purchaseOrderHeader/${id}`);
     return result;
   } catch (error) {
     return await error;
@@ -61,5 +52,4 @@ export default {
   Update,
   FindData,
   Deleted,
-  FindDataByStock,
 };

@@ -15,6 +15,22 @@ export const GetStockDetailFailed = (payload: any) => ({
   payload,
 });
 
+//GETStockId
+export const GetStockDetailByStockIdRequest = (payload: any) => ({
+  type: ActionType.GET_STOCKDETAILBYSTOCKID_REQUEST,
+  payload,
+});
+
+export const GetStockDetailByStockIdSuccess = (payload: any) => ({
+  type: ActionType.GET_STOCKDETAILBYSTOCKID_SUCCESS,
+  payload,
+});
+
+export const GetStockDetailByStockIdFailed = (payload: any) => ({
+  type: ActionType.GET_STOCKDETAILBYSTOCKID_FAILED,
+  payload,
+});
+
 //ADD
 export const AddStockDetailRequest = (payload: any) => ({
   type: ActionType.ADD_STOCKDETAIL_REQUEST,

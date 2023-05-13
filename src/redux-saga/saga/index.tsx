@@ -16,11 +16,13 @@ import * as ActionTypeVendor from "../constant/vendorConstant";
 import * as ActionTypeVendorProduct from "../constant/vendorProductConstant";
 import * as ActionTypeStock from "../constant/stocksConstant";
 import * as ActionTypeStockDetail from "../constant/stockDetailConstant";
+import * as ActionTypePurchaseOrderHeader from "../constant/purchaseOrderHeaderConstant";
 
 import { createVendor, deleteVendor, editVendor, findVendor, handleVendor } from "./VendorSaga";
 import { createVendorProduct, deleteVendorProduct, editVendorProduct, findVendorProduct, handleVendorProduct } from "./VendorProductSaga";
 import { createStock, deleteStock, editStock, findStock, handleStock } from "./StocksSaga";
-import { createStockDetail, deleteStockDetail, editStockDetail, findStockDetail, handleStockDetail } from "./StockDetailSaga";
+import { StockDetailByStockId, createStockDetail, deleteStockDetail, editStockDetail, findStockDetail, handleStockDetail } from "./StockDetailSaga";
+import { createPurchaseOrderHeader, deletePurchaseOrderHeader, editPurchaseOrderHeader, findPurchaseOrderHeader, handlePurchaseOrderHeader } from "./PurchaseOrderHeader";
 
 function* watchAll() {
   yield all([
@@ -78,10 +80,17 @@ function* watchAll() {
     takeEvery(ActionTypeStock.DEL_STOCK_REQUEST, deleteStock),
 
     takeEvery(ActionTypeStockDetail.GET_STOCKDETAIL_REQUEST, handleStockDetail),
+    takeEvery(ActionTypeStockDetail.GET_STOCKDETAILBYSTOCKID_REQUEST, StockDetailByStockId),
     takeEvery(ActionTypeStockDetail.ADD_STOCKDETAIL_REQUEST, createStockDetail),
     takeEvery(ActionTypeStockDetail.FIND_STOCKDETAIL_REQUEST, findStockDetail),
     takeEvery(ActionTypeStockDetail.EDIT_STOCKDETAIL_REQUEST, editStockDetail),
     takeEvery(ActionTypeStockDetail.DEL_STOCKDETAIL_REQUEST, deleteStockDetail),
+
+    takeEvery(ActionTypePurchaseOrderHeader.GET_PURCHASEORDERHEADER_REQUEST, handlePurchaseOrderHeader),
+    takeEvery(ActionTypePurchaseOrderHeader.ADD_PURCHASEORDERHEADER_REQUEST, createPurchaseOrderHeader),
+    takeEvery(ActionTypePurchaseOrderHeader.FIND_PURCHASEORDERHEADER_REQUEST, findPurchaseOrderHeader),
+    takeEvery(ActionTypePurchaseOrderHeader.EDIT_PURCHASEORDERHEADER_REQUEST, editPurchaseOrderHeader),
+    takeEvery(ActionTypePurchaseOrderHeader.DEL_PURCHASEORDERHEADER_REQUEST, deletePurchaseOrderHeader),
   ]);
 }
 

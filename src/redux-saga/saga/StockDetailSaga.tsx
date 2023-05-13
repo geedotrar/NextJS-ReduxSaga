@@ -10,6 +10,8 @@ import {
   EditStockDetailSuccess,
   FindStockDetailFailed,
   FindStockDetailSuccess,
+  GetStockDetailByStockIdFailed,
+  GetStockDetailByStockIdRequest,
   GetStockDetailFailed,
   GetStockDetailSuccess,
 } from "../action/stockDetailAction";
@@ -21,6 +23,17 @@ function* handleStockDetail(): any {
     yield put(GetStockDetailSuccess(result));
   } catch (error) {
     yield put(GetStockDetailFailed(error));
+  }
+}
+
+function* StockDetailByStockId(action: any): any {
+  const { payload } = action;
+  try {
+    const result = yield call(StockDetailApi.FindDataByStock, payload);
+    console.log(result);
+    yield put(GetStockDetailByStockIdRequest(result));
+  } catch (error) {
+    yield put(GetStockDetailByStockIdFailed(error));
   }
 }
 
@@ -62,4 +75,4 @@ function* deleteStockDetail(action: any): any {
   }
 }
 
-export { handleStockDetail, createStockDetail, findStockDetail, editStockDetail, deleteStockDetail };
+export { handleStockDetail, createStockDetail, findStockDetail, editStockDetail, deleteStockDetail, StockDetailByStockId };

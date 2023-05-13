@@ -2,6 +2,10 @@ export const GET_STOCKDETAIL_REQUEST = "stockDetail/get/request";
 export const GET_STOCKDETAIL_SUCCESS = "stockDetail/get/success";
 export const GET_STOCKDETAIL_FAILED = "stockDetail/get/failed";
 
+export const GET_STOCKDETAILBYSTOCKID_REQUEST = "stockDetailByStockId/get/request";
+export const GET_STOCKDETAILBYSTOCKID_SUCCESS = "stockDetailByStockId/get/success";
+export const GET_STOCKDETAILBYSTOCKID_FAILED = "stockDetailByStockId/get/failed";
+
 export const ADD_STOCKDETAIL_REQUEST = "stockDetail/add/request";
 export const ADD_STOCKDETAIL_SUCCESS = "stockDetail/add/success";
 export const ADD_STOCKDETAIL_FAILED = "stockDetail/add/failed";

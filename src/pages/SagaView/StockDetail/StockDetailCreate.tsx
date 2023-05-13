@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-export default function StocksCreate(props: any) {
+export default function StockDetailCreate(props: any) {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
