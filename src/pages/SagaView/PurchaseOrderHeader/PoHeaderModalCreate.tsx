@@ -49,23 +49,25 @@ export default function PoHeaderModalCreate(props: any) {
                 <div>
                   <form onSubmit={formik.handleSubmit}>
                     <div>
-                      <div className="w-full md:w-1/8 px-3 mb-6 md:mb-0">
-                        <label className="mb-3 block text-base font-medium text-[#07074D]">StockName</label>
-                        <select
-                          onChange={formik.handleChange}
-                          id="poheVendor"
-                          name="poheVendor"
-                          className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                        >
-                          {PurchaseOrderHeaders &&
-                            PurchaseOrderHeaders.map((target: any) => {
-                              return (
-                                <>
-                                  <option value={target.poheVendor.vendorId}>{target.poheVendor.vendorName}</option>
-                                </>
-                              );
-                            })}
-                        </select>
+                      <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full md:w-1/8 px-3 mb-6 md:mb-0">
+                          <label className="mb-3 block text-base font-medium text-[#07074D]">StockName</label>
+                          <select
+                            onChange={formik.handleChange}
+                            id="poheVendor"
+                            name="poheVendor"
+                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                          >
+                            {vendors &&
+                              vendors.map((target: any) => {
+                                return (
+                                  <>
+                                    <option value={target.vendorId}>{target.vendorName}</option>
+                                  </>
+                                );
+                              })}
+                          </select>
+                        </div>
                       </div>
                     </div>
 
@@ -81,37 +83,23 @@ export default function PoHeaderModalCreate(props: any) {
                           placeholder="0"
                           className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         />
+                        <div className="mt-6">
+                          <label className="mb-3 block text-base font-medium text-[#07074D]">Status</label>
+                          <select
+                            onChange={formik.handleChange}
+                            id="poheStatus"
+                            name="poheStatus"
+                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                          >
+                            <option selected>Status</option>
+                            <option value="1">Pending</option>
+                            <option value="2">Approve</option>
+                            <option value="3">Rejected</option>
+                            <option value="4">Used</option>
+                            <option value="5">Completed</option>
+                          </select>
+                        </div>
                       </div>
-
-                      <div className="w-full md:w-1/8 px-3 mb-6 md:mb-0">
-                        <label className="mb-3 block text-base font-medium text-[#07074D]">Status</label>
-                        <input
-                          id="poheStatus"
-                          name="poheStatus"
-                          onChange={formik.handleChange}
-                          type="number"
-                          min="0"
-                          max="5"
-                          placeholder="0"
-                          className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                        />
-                      </div>
-                      {/* <div className="w-full md:w-1/8 px-3 mb-6 md:mb-0">
-                        <label className="mb-3 block text-base font-medium text-[#07074D]">Status</label>
-                        <select
-                          onChange={formik.handleChange}
-                          id="stodStatus"
-                          name="stodStatus"
-                          className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                        >
-                          <option selected>Status</option>
-                          <option value="1">Pending</option>
-                          <option value="2">Approve</option>
-                          <option value="3">Rejected</option>
-                          <option value="4">Used</option>
-                          <option value="5">Completed</option>
-                        </select>
-                      </div> */}
                     </div>
 
                     <div>

@@ -75,7 +75,7 @@ export default function StatusModalEdit(props: any) {
                       </div>
 
                       <div className="w-full md:w-1/8 px-3 mb-6 md:mb-0">
-                        <label className="mb-3 block text-base font-medium text-[#07074D]">Status</label>
+                        <label className="mb-3 block text-base font-medium text-[#07074D]">Used In</label>
                         <select
                           onChange={formik.handleChange}
                           id="stodFaci"

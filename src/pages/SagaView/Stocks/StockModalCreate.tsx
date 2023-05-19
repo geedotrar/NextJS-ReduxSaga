@@ -68,7 +68,7 @@ export default function Modal(props: any) {
                     </div>
 
                     <div className="flex flex-wrap -mx-3 mb-6">
-                      <div className="w-1/6 px-5 mb-6 md:mb-0">
+                      <div className="w-40 px-5 mb-6 md:mb-0">
                         <label className="mb-3 block text-base font-medium text-[#07074D]">Quantity</label>
                         <input
                           id="stockQuantity"
@@ -80,7 +80,7 @@ export default function Modal(props: any) {
                           className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         />
                       </div>
-                      <div className="w-1/6 px-5 mb-6 md:mb-0">
+                      <div className="w-40 px-5 mb-6 md:mb-0">
                         <label className="mb-3 block text-base font-medium text-[#07074D]">Used</label>
                         <input
                           id="stockUsed"
@@ -92,7 +92,7 @@ export default function Modal(props: any) {
                           className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         />
                       </div>
-                      <div className="w-1/6 px-5 mb-6 md:mb-0">
+                      <div className="w-40 px-5 mb-6 md:mb-0">
                         <label className="mb-3 block text-base font-medium text-[#07074D]">Scrap</label>
                         <input
                           id="stockScrap"

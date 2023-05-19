@@ -49,19 +49,30 @@ export default function CustomerEdit(props: any) {
               <div className="flex items-center justify-center p-12">
                 <div>
                   <form onSubmit={formik.handleSubmit}>
-                    <div className="-mx-3 mb-6">
-                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label className="mb-3 block text-base font-medium text-[#07074D]">Stock</label>
-                        <input
-                          id="poheStatus"
-                          name="poheStatus"
-                          defaultValue={PurchaseOrderHeader.poheStatus}
-                          onChange={formik.handleChange}
-                          type="text"
-                          placeholder="Stock"
-                          className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                        />
-                      </div>
+                    <div className="w-full md:w-1/8 px-3 mb-6 md:mb-0 p-12">
+                      <label className="mb-3 block text-base font-medium text-[#07074D]">Status</label>
+                      <select
+                        onChange={formik.handleChange}
+                        id="poheStatus"
+                        name="poheStatus"
+                        className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                      >
+                        <option value="1" selected={props.status === 1}>
+                          Pending
+                        </option>
+                        <option value="2" selected={props.status === 2}>
+                          Approve
+                        </option>
+                        <option value="3" selected={props.status === 3}>
+                          Rejected
+                        </option>
+                        <option value="4" selected={props.status === 4}>
+                          Used
+                        </option>
+                        <option value="5" selected={props.status === 5}>
+                          Completed
+                        </option>
+                      </select>
                     </div>
 
                     <div>

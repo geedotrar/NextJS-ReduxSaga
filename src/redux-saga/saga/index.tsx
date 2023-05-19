@@ -17,12 +17,14 @@ import * as ActionTypeVendorProduct from "../constant/vendorProductConstant";
 import * as ActionTypeStock from "../constant/stocksConstant";
 import * as ActionTypeStockDetail from "../constant/stockDetailConstant";
 import * as ActionTypePurchaseOrderHeader from "../constant/purchaseOrderHeaderConstant";
+import * as ActionTypePurchaseOrderDetail from "../constant/purchaseOrderDetailConstant";
 
 import { createVendor, deleteVendor, editVendor, findVendor, handleVendor } from "./VendorSaga";
 import { createVendorProduct, deleteVendorProduct, editVendorProduct, findVendorProduct, handleVendorProduct } from "./VendorProductSaga";
 import { createStock, deleteStock, editStock, findStock, handleStock } from "./StocksSaga";
 import { StockDetailByStockId, createStockDetail, deleteStockDetail, editStockDetail, findStockDetail, handleStockDetail } from "./StockDetailSaga";
 import { createPurchaseOrderHeader, deletePurchaseOrderHeader, editPurchaseOrderHeader, findPurchaseOrderHeader, handlePurchaseOrderHeader } from "./PurchaseOrderHeader";
+import { createPurchaseOrderDetail, deletePurchaseOrderDetail, editPurchaseOrderDetail } from "./PurchaseOrderDetailSaga";
 
 function* watchAll() {
   yield all([
@@ -91,6 +93,10 @@ function* watchAll() {
     takeEvery(ActionTypePurchaseOrderHeader.FIND_PURCHASEORDERHEADER_REQUEST, findPurchaseOrderHeader),
     takeEvery(ActionTypePurchaseOrderHeader.EDIT_PURCHASEORDERHEADER_REQUEST, editPurchaseOrderHeader),
     takeEvery(ActionTypePurchaseOrderHeader.DEL_PURCHASEORDERHEADER_REQUEST, deletePurchaseOrderHeader),
+
+    takeEvery(ActionTypePurchaseOrderDetail.ADD_PURCHASEORDERDETAIL_REQUEST, createPurchaseOrderDetail),
+    takeEvery(ActionTypePurchaseOrderDetail.EDIT_PURCHASEORDERDETAIL_REQUEST, editPurchaseOrderDetail),
+    takeEvery(ActionTypePurchaseOrderDetail.DEL_PURCHASEORDERDETAIL_REQUEST, deletePurchaseOrderDetail),
   ]);
 }
 

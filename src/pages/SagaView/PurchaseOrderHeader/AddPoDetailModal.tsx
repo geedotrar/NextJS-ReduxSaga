@@ -3,21 +3,27 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddVendorProductRequest } from "@/redux-saga/action/vendorProductAction";
 import { GetStockRequest } from "@/redux-saga/action/stocksAction";
+import { AddPurchaseOrderHeaderRequest } from "@/redux-saga/action/purchaseOrderHeaderAction";
+import { AddPurchaseOrderDetailRequest } from "@/redux-saga/action/purchaseOrderDetailAction";
 
-export default function ModalAddItemProduct(props: any) {
+export default function AddPoDetail(props: any) {
   const dispatch = useDispatch();
+  const { PurchaseOrderHeaders } = useSelector((state: any) => state.PurchaseOrderHeaderState);
   const { stocks } = useSelector((state: any) => state.stocksState);
+
   const formik = useFormik({
     initialValues: {
-      veproVendor: props.vendorId,
-      veproStock: undefined,
-      veproQtyStocked: undefined,
-      veproQtyRemaining: undefined,
-      veproPrice: undefined,
+      podePoheId: props.id,
+      podeStock: undefined,
+      podeOrderQty: undefined,
+      podePrice: undefined,
+      podeReceivedQty: undefined,
+      podeRejectedQty: undefined,
+      podeLineTotal: undefined,
     },
     onSubmit: async (values: any) => {
       console.log(values);
-      dispatch(AddVendorProductRequest(values));
+      dispatch(AddPurchaseOrderDetailRequest(values));
       props.setDisplay(false);
       window.alert("Data Successfully Insert");
       props.setRefresh(!props.refresh);
@@ -28,7 +34,7 @@ export default function ModalAddItemProduct(props: any) {
     dispatch(GetStockRequest());
   }, []);
 
-  console.log(stocks);
+  //   console.log(stocks);
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -37,7 +43,7 @@ export default function ModalAddItemProduct(props: any) {
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold">Add Vendor Product</h3>
+              <h3 className="text-3xl font-semibold">Add Details</h3>
               <button className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={() => props.setDisplay(false)}>
                 <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
               </button>
@@ -52,8 +58,8 @@ export default function ModalAddItemProduct(props: any) {
                         <label className="mb-3 block text-base font-medium text-[#07074D]">StockName</label>
                         <select
                           onChange={formik.handleChange}
-                          id="veproStock"
-                          name="veproStock"
+                          id="podeStock"
+                          name="podeStock"
                           className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         >
                           <option selected>Choose Stock</option>
@@ -69,11 +75,11 @@ export default function ModalAddItemProduct(props: any) {
                       </div>
 
                       <div className="flex flex-wrap mt-6 -mx-3 mb-6">
-                        <div className="w-1/4 px-5 mb-6 md:mb-0">
-                          <label className="mb-3 block text-base font-medium text-[#07074D]">Qty Stocked</label>
+                        <div className="w-48 px-5 mb-6 md:mb-0">
+                          <label className="mb-3 block text-base font-medium text-[#07074D]">Qty</label>
                           <input
-                            id="veproQtyStocked"
-                            name="veproQtyStocked"
+                            id="podeOrderQty"
+                            name="podeOrderQty"
                             onChange={formik.handleChange}
                             type="number"
                             min="0"
@@ -81,32 +87,62 @@ export default function ModalAddItemProduct(props: any) {
                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                           />
                         </div>
-                        <div className="w-1/4 px-5 mb-6 md:mb-0">
-                          <label className="mb-3 block text-base font-medium text-[#07074D]">Remaining</label>
+                        <div className="w-48 px-5 mb-6 md:mb-0">
+                          <label className="mb-3 block text-base font-medium text-[#07074D]">Price</label>
                           <input
-                            id="veproQtyRemaining"
-                            name="veproQtyRemaining"
+                            id="podePrice"
+                            name="podePrice"
                             onChange={formik.handleChange}
                             type="number"
                             min="0"
                             placeholder="0"
                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                           />
+                        </div>
+
+                        <div className="flex -mx-3 mb-6">
+                          <div className="w-48 px-5 ">
+                            <label className="mb-3 block text-base font-medium text-[#07074D]">Receive</label>
+                            <input
+                              id="podeReceivedQty"
+                              name="podeReceivedQty"
+                              onChange={formik.handleChange}
+                              type="number"
+                              min="0"
+                              placeholder="0"
+                              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                            />
+                          </div>
                         </div>
                       </div>
 
-                      <div className="flex -mx-3 mb-6">
-                        <div className="w-1/4 px-5 mb-6 md:mb-6">
-                          <label className="mb-3 block text-base font-medium text-[#07074D]">Sell Price</label>
+                      <div className="flex flex-wrap mt-6 -mx-3 mb-6">
+                        <div className="w-1/8 px-5 mb-6 md:mb-6">
+                          <label className="mb-3 block text-base font-medium text-[#07074D]">Rejected</label>
                           <input
-                            id="veproPrice"
-                            name="veproPrice"
+                            id="podeRejectedQty"
+                            name="podeRejectedQty"
                             onChange={formik.handleChange}
                             type="number"
                             min="0"
                             placeholder="0"
                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                           />
+                        </div>
+
+                        <div className="flex -mx-3 mb-6">
+                          <div className="w-1/8 px-5 mb-6 md:mb-6">
+                            <label className="mb-3 block text-base font-medium text-[#07074D]">Line Total</label>
+                            <input
+                              id="podeLineTotal"
+                              name="podeLineTotal"
+                              onChange={formik.handleChange}
+                              type="number"
+                              min="0"
+                              placeholder="0"
+                              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                            />
+                          </div>
                         </div>
                       </div>
 

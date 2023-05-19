@@ -64,9 +64,10 @@ export const EditStockDetailFailed = (payload: any) => ({
 });
 
 //DELETE
-export const DelStockDetailRequest = (payload: any) => ({
+export const DelStockDetailRequest = (id: any, stodId: any) => ({
   type: ActionType.DEL_STOCKDETAIL_REQUEST,
-  payload,
+  id,
+  stodId,
 });
 
 export const DelStockDetailSuccess = (payload: any) => ({

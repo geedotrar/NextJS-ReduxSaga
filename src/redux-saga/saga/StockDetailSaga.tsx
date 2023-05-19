@@ -66,9 +66,10 @@ function* editStockDetail(action: any): any {
 }
 
 function* deleteStockDetail(action: any): any {
-  const { payload } = action;
+  const { id } = action;
+  const { stodId } = action;
   try {
-    const result = yield call(StockDetailApi.Deleted, payload);
+    const result = yield call(StockDetailApi.Deleted, id, stodId);
     yield put(DelStockDetailSuccess(result.data));
   } catch (error) {
     yield put(DelStockDetailFailed(error));

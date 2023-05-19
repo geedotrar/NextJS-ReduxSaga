@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Layout from "@/component/layout";
 import { useDispatch, useSelector } from "react-redux";
 import { DelPurchaseOrderHeaderRequest, GetPurchaseOrderHeaderRequest } from "@/redux-saga/action/purchaseOrderHeaderAction";
-// import { DelOrderDetailRequest, GetOrderDetailRequest } from "@/redux-saga/action/orderDetailAction";
 
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
@@ -37,22 +36,22 @@ export default function PurchaseOrderHeaderSaga() {
     setRefresh(!refresh);
   };
 
-  const onClick = (id: any) => {
+  const onClick = (id: any, statusId: any) => {
     setDisplayEdit(true);
     setId(id);
-    // setStatus(statusId);
+    setStatus(statusId);
   };
 
-  // const [itemOffset, setItemOffset] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
 
-  // const endOffset = itemOffset + 5;
-  // const currentItems = PurchaseOrderHeaders.slice(itemOffset, endOffset);
-  // const pageCount = Math.ceil(PurchaseOrderHeaders.length / 5);
+  const endOffset = itemOffset + 5;
+  const currentItems = PurchaseOrderHeaders.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(PurchaseOrderHeaders.length / 5);
 
-  // const handlePageClick = (event: any) => {
-  //   const newOffset = (event.selected * 5) % PurchaseOrderHeaders.length;
-  //   setItemOffset(newOffset);
-  // };
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * 5) % PurchaseOrderHeaders.length;
+    setItemOffset(newOffset);
+  };
 
   const poStatus = (status: number) => {
     switch (status) {
@@ -63,7 +62,7 @@ export default function PurchaseOrderHeaderSaga() {
       case 3:
         return "Rejected";
       case 4:
-        return "Received";
+        return "Used";
       case 5:
         return "Completed";
     }
@@ -74,8 +73,8 @@ export default function PurchaseOrderHeaderSaga() {
       <Layout>
         <div className="p-4 sm:ml-64">
           <div>
-            {display && <PoHeaderModalCreate setDisplay={setDisplay} refresh={refresh} setRefresh={setRefresh} />}
-            {displayEdit && <SwitchStatusModalEdit setDisplay={setDisplayEdit} refresh={refresh} id={id} setRefresh={setRefresh} />}
+            {display && <PoHeaderModalCreate setDisplay={setDisplay} refresh={refresh} setRefresh={setRefresh} status={status} />}
+            {displayEdit && <SwitchStatusModalEdit setDisplay={setDisplayEdit} status={status} refresh={refresh} id={id} setRefresh={setRefresh} />}
             <div className="mt-20">
               <div className="flex flex-col">
                 <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5 min-h-screen">
@@ -93,9 +92,9 @@ export default function PurchaseOrderHeaderSaga() {
                             <th scope="col" className="text-center text-sm font-medium text-gray-900 px-6 py-4 text-left">
                               Vendor Target
                             </th>
-                            <th scope="col" className="text-center text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                            {/* <th scope="col" className="text-center text-sm font-medium text-gray-900 px-6 py-4 text-left">
                               Line Items
-                            </th>
+                            </th> */}
                             <th scope="col" className="text-center text-sm font-medium text-gray-900 px-6 py-4 text-left">
                               Total Amount
                             </th>
@@ -109,14 +108,14 @@ export default function PurchaseOrderHeaderSaga() {
                         </thead>
                         <tbody>
                           {PurchaseOrderHeaders &&
-                            PurchaseOrderHeaders.map((poHeader: any) => {
+                            currentItems.map((poHeader: any) => {
                               return (
                                 <>
                                   <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{poHeader.poheNumber}</td>
                                     <td className="text-sm text-black-900 font-dark px-6 py-4 whitespace-nowrap">{poHeader.poheOrderDate}</td>
                                     <td className="text-sm text-black-900 font-dark px-6 py-4 whitespace-nowrap">{poHeader.poheVendor ? poHeader.poheVendor.vendorName : undefined}</td>
-                                    <td className="text-sm text-black-900 font-dark px-6 py-4 whitespace-nowrap">1</td>
+                                    {/* <td className="text-sm text-black-900 font-dark px-6 py-4 whitespace-nowrap">1</td> */}
                                     <td className="text-sm text-black-900 font-dark px-6 py-4 whitespace-nowrap">{poHeader.poheTotalAmount}</td>
                                     <td className="text-sm text-black-900 font-dark px-6 py-4 whitespace-nowrap">{poStatus(poHeader.poheStatus)}</td>
                                     <td>
@@ -141,18 +140,18 @@ export default function PurchaseOrderHeaderSaga() {
                                         >
                                           <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <div className="py-1">
-                                              {/* <Menu.Item>
+                                              <Menu.Item>
                                                 {({ active }) => (
-                                                  <li onClick={() => onClick("#")} className={classNames(active ? "cursor-pointer bg-gray-100 text-gray-900" : "text-gray-700", "block px-4 py-2 text-sm")}>
+                                                  <Link href={`/SagaView/PurchaseOrderHeader/${poHeader.poheId}`} className={classNames(active ? "cursor-pointer bg-gray-100 text-gray-900" : "text-gray-700", "block px-4 py-2 text-sm")}>
                                                     Details
-                                                  </li>
+                                                  </Link>
                                                 )}
-                                              </Menu.Item> */}
+                                              </Menu.Item>
                                             </div>
                                             <div>
                                               <Menu.Item>
                                                 {({ active }) => (
-                                                  <li onClick={() => onClick(poHeader.poheId)} className={classNames(active ? "cursor-pointer bg-gray-100 text-gray-900" : "text-gray-700", "block px-4 py-2 text-sm")}>
+                                                  <li onClick={() => onClick(poHeader.poheId, poHeader.poheStatus)} className={classNames(active ? "cursor-pointer bg-gray-100 text-gray-900" : "text-gray-700", "block px-4 py-2 text-sm")}>
                                                     Switch Status
                                                   </li>
                                                 )}
@@ -178,7 +177,7 @@ export default function PurchaseOrderHeaderSaga() {
                             })}
                         </tbody>
                       </table>
-                      {/* <ReactPaginate
+                      <ReactPaginate
                         breakLabel="..."
                         nextLabel="next >"
                         onPageChange={handlePageClick}
@@ -191,7 +190,7 @@ export default function PurchaseOrderHeaderSaga() {
                         nextLinkClassName="btn btn-sm bg-blue-500 border-none"
                         pageLinkClassName="btn btn-sm bg-blue-500 border-none"
                         previousLinkClassName="btn btn-sm bg-blue-500 border-none"
-                      /> */}
+                      />
                     </div>
                   </div>
                 </div>

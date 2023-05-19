@@ -2,17 +2,20 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { EditVendorProductRequest, FindVendorProductRequest } from "@/redux-saga/action/vendorProductAction";
-// import { EditVendorRequest, FindVendorRequest } from "@/redux-saga/action/vendorAction";
+import { GetStockRequest } from "@/redux-saga/action/stocksAction";
 
 export default function EditItemProductModal(props: any) {
   const dispatch = useDispatch();
   const { vendorProduct } = useSelector((state: any) => state.vendorProductState);
+  const { stocks } = useSelector((state: any) => state.stocksState);
+
   console.log(vendorProduct);
+  console.log(props.id, "vendorId");
   useEffect(() => {
     dispatch(FindVendorProductRequest(props.id));
+    dispatch(GetStockRequest());
   }, []);
 
-  // console.log(props.id);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -24,13 +27,14 @@ export default function EditItemProductModal(props: any) {
     },
 
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       dispatch(EditVendorProductRequest(values));
       props.setDisplay(false);
       window.alert("Data Successfully Insert");
       props.setRefresh(!props.refresh);
     },
   });
+
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -50,7 +54,7 @@ export default function EditItemProductModal(props: any) {
                 <div className="flex items-center justify-center p-12">
                   <div>
                     <form onSubmit={formik.handleSubmit}>
-                      {/* <div className="w-full md:w-1/8 px-3 mb-6 md:mb-0">
+                      <div className="w-full md:w-1/8 px-3 mb-6 md:mb-0">
                         <label className="mb-3 block text-base font-medium text-[#07074D]">StockName</label>
                         <select
                           onChange={formik.handleChange}
@@ -58,18 +62,22 @@ export default function EditItemProductModal(props: any) {
                           name="veproStock"
                           className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         >
-                          {vendorProduct &&
-                            vendorProduct.map((stock: any) => {
+                          <option selected>Choose Stock</option>
+                          {stocks &&
+                            stocks.map((stock: any) => {
                               return (
-                                <option key={stock.stockId} value={stock.stockId}>
-                                  {stock.stockName}
-                                </option>
+                                <>
+                                  {/* <option value={stock.stockId} selected={props.stockName === stock.stockId}> */}
+                                  <option value={stock.stockId} selected={props.stockName === stock.stockId}>
+                                    {stock.stockName}
+                                  </option>
+                                </>
                               );
                             })}
                         </select>
-                      </div> */}
+                      </div>
 
-                      <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="flex flex-wrap mt-6 -mx-3 mb-6">
                         <div className="w-1/4 px-5 mb-6 md:mb-0">
                           <label className="mb-3 block text-base font-medium text-[#07074D]">Qty Stocked</label>
                           <input

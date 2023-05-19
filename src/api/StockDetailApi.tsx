@@ -46,9 +46,9 @@ const FindDataByStock = async (id: any) => {
   }
 };
 
-const Deleted = async (id: any) => {
+const Deleted = async (id: any, stodId: any) => {
   try {
-    const result = await axios.delete(`${config.domain}/stockDetail/${id}`);
+    const result = await axios.delete(`${config.domain}/stockDetail/${id}/${stodId}`);
     return result;
   } catch (error) {
     return await error;

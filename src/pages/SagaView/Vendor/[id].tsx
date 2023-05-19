@@ -17,6 +17,7 @@ export default function ProdCategorySaga() {
 
   const { id } = router.query;
 
+  const [stockName, setStockName] = useState<any>(null);
   const [vendorId, setVendorId] = useState<any>();
   const [display, setDisplay] = useState<any>(false);
   const [refresh, setRefresh] = useState<any>(false);
@@ -48,9 +49,10 @@ export default function ProdCategorySaga() {
     setDisplay(false);
   };
 
-  const onClick = (id: any) => {
+  const onClick = (id: any, stockName: any) => {
     setDisplayEdit(true);
     setVendorId(id);
+    setStockName(stockName);
     // setId(id);
   };
 
@@ -70,7 +72,7 @@ export default function ProdCategorySaga() {
     <div className="pt-20">
       <Layout>
         <div className="p-4 sm:ml-64">
-          {displayEdit && <EditItemProductModal refresh={refresh} setDisplay={setDisplayEdit} id={id} setRefresh={setRefresh} />}
+          {displayEdit && <EditItemProductModal stockName={stockName} refresh={refresh} setDisplay={setDisplayEdit} id={vendorId} setRefresh={setRefresh} />}
 
           {display && <ModalAddItemProduct refresh={refresh} setRefresh={setRefresh} vendorId={id} setDisplay={setDisplay} />}
           <div className="mb-0">
@@ -103,7 +105,7 @@ export default function ProdCategorySaga() {
                       </thead>
                       <tbody>
                         {vendorProducts &&
-                          vendorProducts.map((vepro: any) => {
+                          currentItems.map((vepro: any) => {
                             return (
                               <>
                                 <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
@@ -135,7 +137,7 @@ export default function ProdCategorySaga() {
                                           <div className="py-1">
                                             <Menu.Item>
                                               {({ active }) => (
-                                                <li onClick={() => onClick(vepro.veproId)} className={classNames(active ? "cursor-pointer bg-gray-100 text-gray-900" : "text-gray-700", "block px-4 py-2 text-sm")}>
+                                                <li onClick={() => onClick(vepro.veproId, vepro.veproStock.stockName)} className={classNames(active ? "cursor-pointer bg-gray-100 text-gray-900" : "text-gray-700", "block px-4 py-2 text-sm")}>
                                                   Edit
                                                 </li>
                                               )}
